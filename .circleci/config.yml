@@ -37,8 +37,8 @@ jobs:
       - run:
           name: MySQL'in hazır olması bekleniyor
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      #- run:
-      #    command: mvn verify
+      - run:
+          command: mvn verify
       - run:
           command: mvn test
       - store_test_results:
