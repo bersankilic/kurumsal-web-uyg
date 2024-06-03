@@ -36,18 +36,11 @@ public class ContactController {
         // E-posta gönderimi
         String subject = "Yeni İletişim Formu Alındı ! ";
         String body = "Ad: " + ad + "\nMail: " + mail + "\nTelefon: " + telefon;
-        senderService.sendMail("yourmail@gmail.com", subject, body);
+        senderService.sendMail("bersanklc02@gmail.com", subject, body);
         
         
-        return "redirect:/succes.html";
+        return "redirect:/success.html";
     }
-    
-    @GetMapping("/contact")
-    public String showContactForm() {
-        return "contact";
-    }
-    
-   
     
     
     @GetMapping("/admin/contacts")
