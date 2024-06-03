@@ -8,7 +8,7 @@ jobs:
       - image: cimg/mysql:8.0
 
         environment:
-          MYSQL_ROOT_PASSWORD: "$DB_PASS"
+          MYSQL_ROOT_PASSWORD: 147852QWe.
           MYSQL_DATABASE: contact
           MYSQL_USER: user
           MYSQL_PASSWORD: passw0rd
@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       - run:
-            # mysql konteynırı hazır olana kadar bekle...
+            # mysql konteynırı hazır olana kadar bekle.
             name: MySQL'in hazır olması bekleniyor
             command: |
               for i in `seq 1 10`;
