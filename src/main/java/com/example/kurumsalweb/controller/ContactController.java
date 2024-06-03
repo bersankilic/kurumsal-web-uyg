@@ -36,7 +36,7 @@ public class ContactController {
         // E-posta gönderimi
         String subject = "Yeni İletişim Formu Alındı ! ";
         String body = "Ad: " + ad + "\nMail: " + mail + "\nTelefon: " + telefon;
-        senderService.sendMail("bersanklc02@gmail.com", subject, body);
+        senderService.sendMail("yourmail@gmail.com", subject, body);
         
         
         return "redirect:/success.html";
