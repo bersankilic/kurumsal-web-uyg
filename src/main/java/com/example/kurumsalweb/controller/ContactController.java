@@ -4,7 +4,9 @@ package com.example.kurumsalweb.controller;
 import com.example.kurumsalweb.model.ContactModel;
 import com.example.kurumsalweb.repository.ContactRepository;
 import com.example.kurumsalweb.service.ContactService;
+import com.example.kurumsalweb.service.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,9 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
     
+    @Autowired
+    private EmailSenderService senderService;
+    
     
     @PostMapping("/submitForm")
     public String submitForm(@RequestParam("ad") String ad, @RequestParam("mail") String mail,@RequestParam("telefon") String telefon) {
@@ -26,9 +31,15 @@ public class ContactController {
         contact.setAd(ad);
         contact.setMail(mail);
         contact.setTelefon(telefon);
-        
         contactRepository.save(contact);
-        return "/succes.html";
+        
+        // E-posta gönderimi
+        String subject = "Yeni İletişim Formu Alındı ! ";
+        String body = "Ad: " + ad + "\nMail: " + mail + "\nTelefon: " + telefon;
+        senderService.sendMail("yourmail@gmail.com", subject, body);
+        
+        
+        return "redirect:/succes.html";
     }
     
     @GetMapping("/contact")
