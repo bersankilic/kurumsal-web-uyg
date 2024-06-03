@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş</title>
+    <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <style>
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: -25px;
+            margin-bottom: 5px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+
+            if (window.location.href.indexOf('error=true') !== -1) {
+                // Show error message
+                var errorMessage = document.createElement('div');
+                errorMessage.className = 'error-message';
+                errorMessage.textContent = 'Email veya şifre hatalı.';
+                document.querySelector('.wrapper').appendChild(errorMessage);
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="wrapper">
+        <div class="title"><span>Admin Girişi</span></div>
+        <form action="/perform_login" method="post">
+            <div class="row">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" name="username" placeholder="Email" required>
+            </div>
+            <div class="row">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Şifre" required>
+            </div>
+            <div class="row button">
+                <input type="submit" value="Giriş">
+            </div>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

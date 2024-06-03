@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-panel {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            overflow: hidden;
+            width: 100%;
+            border: none;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #f6b93b;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .logout-button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #f6b93b;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .logout-button:hover {
+            background-color: #f39c12;
+        }
+
+        td {
+            font-size: 1.1em;
+            position: relative;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .checkbox {
+            position: relative;
+            text-align: center;
+        }
+        .checkbox input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .checkbox .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .checkbox .custom-checkbox::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: transparent;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: background-color 0.3s ease;
+        }
+        .checkbox input[type="checkbox"]:checked + .custom-checkbox::after {
+            background-color: #f6b93b;
+        }
+    </style>
+    <script> <!--server side -->
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/admin/contacts')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('contacts-table-body');
+                    data.forEach(contact => {
+                        const row = document.createElement('tr');
+                        row.innerHTML =
+                            `
+                            <td>${contact.ad}</td>
+                            <td>${contact.mail}</td>
+                            <td>${contact.telefon}</td>
+                            <td class="checkbox"><label><input type="checkbox" onchange="deleteRow(this, '${contact.id}')"><span class="custom-checkbox"></span></label></td>
+                            `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Contact verisi fetchlenemedi :', error);
+                });
+        });
+
+        function deleteRow(checkbox, id) {
+            if (checkbox.checked) {
+                fetch(`admin/contacts/${id}`, {
+                    method: 'DELETE'
+                })
+
+                    .then(data => {
+                        console.log('Contact silindi:', data);
+                        // Silinen satırı tablodan kaldır
+                        checkbox.closest('tr').remove();
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Contact silinemedi :', error);
+                    });
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="admin-panel">
+        <h1>Admin Paneli</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Ad</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>İletişime Geçildi Mi?</th>
+            </tr>
+            </thead>
+            <tbody id="contacts-table-body">
+            <!-- js ile dinamik olarak dolacak -->
+            </tbody>
+        </table>
+    </div>
+    <button class="logout-button" onclick="window.location.href='/perform_logout';">Çıkış Yap</button>
+</div>
+</body>
+</html>

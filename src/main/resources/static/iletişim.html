@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    
+
+    <title>DuymazlarPVC</title>
+    <link rel="stylesheet" href="styles/katalog.css"/>
+    
+  </head>
+
+
+  <body>
+
+    <header class="header">
+        <a href="#" class="logo">
+    <img src="images/logo.jpeg" alt="logo" />
+  </a>
+  <nav class="navbar">
+    <a href="index.html" >Ana Sayfa</a>
+    <a href="katalog.html"  >Katalog</a>   
+    <a href="iletişim.html"class="active">İletişim</a>
+  </nav>
+
+
+  <div class="buttons">
+    
+  </div>
+
+
+
+  <div class="search-form">
+    <input
+      type="text"
+      class="search-input"
+      id="search-box"
+      placeholder="Ürün ara..."
+    />
+    <i class="fas fa-search"></i>
+  </div>
+
+
+    </header>
+
+
+    <section class="iletisim">
+      <h1>İletişim Bilgileri</h1>
+      <div class="row">
+        
+          <a href="https://www.instagram.com/duymazlarpvc?igsh=aTd3ZHRuYmZyaHdu" class="fab fa-instagram" target="_blank"></a>
+          <h4>@duymazlarpvc</h4>
+        
+          <a href="https://wa.me/905358382605" class="fab fa-whatsapp" target="_blank"></a>
+          <h4>Mehmet Zülfi Duymaz </h4>
+          
+
+          <a href="tel:05358382605" class="fas fa-phone" target="_blank"></a>
+          <h4>05358382605</h4>
+        
+      </div>
+
+
+
+
+    </section>
+
+
+
+
+
+
+     <section class="contact" id="contact">
+      <h1 class="heading">İletişim</h1>
+      <div class="row">
+        <iframe class="map"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3132.7215285724833!2d39.757363!3d38.2627641!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4074498054506d49%3A0xb1d89d9419a734cd!2sDuymazlar%20PEN!5e0!3m2!1str!2str!4v1717086889441!5m2!1str!2str" 
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+        <form action="/submitForm" method="post">
+          <h3>Bizimle İletişime Geçin</h3>
+          <div class="inputBox">
+            <i class="fas fa-user"></i>
+            <input type="text" name="ad" placeholder="Ad" required="true" minlength="3"/>
+          </div>
+          <div class="inputBox">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="mail" placeholder="Mail" required="true"/>
+          </div>
+          <div class="inputBox">
+            <i class="fas fa-phone"></i>
+            <input type="tel" name="telefon" placeholder="Telefon" required="true" minlength="10" maxlength="11" pattern="\d{10,11}" inputmode="numeric"/>
+          </div>
+          <input type="submit" class="btn" value="Gönder">
+        </form>
+      </div>
+     </section>
+
+
+
+    
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--Footer section start-->
+
+    <section class="footer">
+       
+  
+        <div class="share">
+          
+          <a href="tel:05358382605" class="fas fa-phone" target="_blank"></a>
+          <a href="https://www.instagram.com/duymazlarpvc?igsh=aTd3ZHRuYmZyaHdu" class="fab fa-instagram"></a>
+          <a href="https://wa.me/905358382605" class="fab fa-whatsapp" target="_blank"></a>
+          <a href="#" class="fab fa-linkedin" target="_blank"></a>
+          
+        </div>
+  
+        <div class="links">
+          <a href="index.html" >Ana Sayfa</a>
+          <a href="katalog.html">Katalog</a>
+          <a href="iletişim.html"class="active">İletişim</a>
+        </div>
+  
+        <div class="credit">
+          created by <br />
+          <span
+            >|Rojin Abudak <br />
+            |Ömer Duymaz <br />
+            |Berşan Kılıç</span
+          >
+          <br />
+          All Rights Reserved
+        </div>
+      </section>
+  
+      <!--Footer section end-->
+
+
+
+  </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
