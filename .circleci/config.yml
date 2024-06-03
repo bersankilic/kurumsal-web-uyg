@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       - run:
-            # mysql konteynırı hazır olana kadar bekle
+            # mysql konteynırı hazır olana kadar bekle.
             name: MySQL'in hazır olması bekleniyor
             command: |
               for i in `seq 1 10`;
