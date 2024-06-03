@@ -1,0 +1,94 @@
+
+version: 2.1
+jobs:
+  test-java:
+
+    docker:
+      - image: cimg/openjdk:21.0
+      - image: cimg/mysql:8.0
+
+        environment:
+          MYSQL_ROOT_PASSWORD: 147852QWe.
+          MYSQL_DATABASE: contact
+          MYSQL_USER: user
+          MYSQL_PASSWORD: passw0rd
+
+    steps:
+      - checkout
+      - run:
+            # mysql konteynırı hazır olana kadar bekle
+            name: MySQL'in hazır olması bekleniyor
+            command: |
+              for i in `seq 1 10`;
+              do
+                nc -z 127.0.0.1 3306 && echo Success && exit 0
+                echo -n .
+                sleep 1
+              done
+              echo Failed waiting for MySQL && exit 1
+
+      - run:
+          name: Cache key hesaplanıyor
+          command: |-
+            find . -name 'pom.xml' -o -name 'gradlew*' -o -name '*.gradle*' | \
+                    sort | xargs cat > /tmp/CIRCLECI_CACHE_KEY
+      - restore_cache:
+          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
+      - run:
+          name: MySQL'in hazır olması bekleniyor
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      #- run:
+      #    command: mvn verify
+      - run:
+          command: mvn test
+      - store_test_results:
+          path: target/surefire-reports
+      - save_cache:
+          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
+          paths:
+            - ~/.m2/repository
+
+  deploy:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "$SSH_KEY"
+
+      - run:
+          name: SSH yolu hazırlanıyor
+          command: mkdir -p ~/.ssh
+      - run:
+          name: Github bilinen hostlara ekleniyor
+          command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - checkout
+      - run:
+          name: Github'a deploy ediliyor
+          command: |
+            git config --global user.email "bersanklc02@gmail.com"
+            git config --global user.name "bersankilic"
+            git remote set-url origin https://github.com/bersankilic/kurumsal-web-uyg.git
+            git add .
+            git checkout dummy-master
+            git merge experiment
+            git push origin dummy-master
+      
+
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - test-java:
+          filters:
+            branches:
+              ignore: circleci_demo
+      - deploy:
+            requires:
+              - test-java
+            filters:
+              branches:
+                ignore: circleci_demo
+
+
