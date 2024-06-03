@@ -73,7 +73,7 @@ jobs:
             git checkout dummy-master
             git merge experiment
             git push origin dummy-master
-      
+            git checkout experiment
 
 
 workflows:
@@ -89,6 +89,6 @@ workflows:
               - test-java
             filters:
               branches:
-                only: dummy-master
+                ignore: dummy-master
 
 
