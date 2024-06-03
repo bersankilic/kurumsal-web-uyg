@@ -89,6 +89,6 @@ workflows:
               - test-java
             filters:
               branches:
-                ignore: dummy-master
+                only: dummy-master
 
 
