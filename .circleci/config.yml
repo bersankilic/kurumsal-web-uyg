@@ -83,12 +83,12 @@ workflows:
       - test-java:
           filters:
             branches:
-              ignore: circleci_demo
+              ignore: dummy-master
       - deploy:
             requires:
               - test-java
             filters:
               branches:
-                ignore: circleci_demo
+                ignore: dummy-master
 
 
