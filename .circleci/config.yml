@@ -73,7 +73,6 @@ jobs:
             git checkout dummy-master
             git merge experiment
             git push origin dummy-master
-            git checkout experiment
 
 
 workflows:
